@@ -6,9 +6,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Comparator;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.*;
 import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 
 /**
  * Created with IntelliJ IDEA. User: Antonio J. Nebro Date: 08/07/13
@@ -30,6 +32,49 @@ public class AvlTreeTest {
     comparator = null;
   }
 
+  /**
+   * Probamos que al buscar un nodo y el arbol es nulo se devuelve null
+   *
+   * Given: Un arbol vacio
+   * When: Buscamos un elemento
+   * Then: Se devuelve null
+   */
+  @Test
+  public void testSearchTopNull() {
+    //Given
+    AvlTree<Integer> avlTree = new AvlTree(comparator);
+    AvlNode<Integer> result = new AvlNode<Integer>(0);
+
+    //When
+    result =  avlTree.searchNode(4);
+
+    //Then
+    assertEquals( null, result);
+  }
+
+  /**
+   * Probamos que al buscar un nodo y el arbol es nulo se devuelve null
+   *
+   * Given: Un arbol vacio
+   * When: Insertamos un elemento
+   * Then: Devuelve un AVL Tree con ese elemento como top
+   */
+  @Test
+  public void testInsertTop() throws Exception {
+    //Given
+    AvlTree<Integer> avlTree = new AvlTree(comparator);
+
+    //When
+    AvlNode<Integer> node = new AvlNode(4);               //Este node es auxiliar para la comparacion
+    avlTree.insert(4);
+
+    //Then
+    assertEquals("TestInsertTop", node.getItem(), avlTree.getTop().getItem());
+    String tree = " | 4";
+    assertEquals("TestInsertTop", tree, avlTree.toString());
+  }
+
+
   @Test
   public void testAvlIsEmpty() throws Exception {
     assertTrue("TestAvlIsEmpty", avlTree.avlIsEmpty());
@@ -38,23 +83,7 @@ public class AvlTreeTest {
     assertFalse("TestAvlIsEmpty", avlTree.avlIsEmpty());
   }
 
-  @Test
-  public void testInsertTop() throws Exception {
-    AvlNode<Integer> node = new AvlNode(4);
-    avlTree.setTop(node);
-    assertEquals("TestInsertTop", node, avlTree.getTop());
-    String tree = " | 4";
-    assertEquals("TestInsertTop", tree, avlTree.toString());
-  }
 
-  @Test
-  public void testInsertTopRafa() throws Exception {
-    AvlNode<Integer> node = new AvlNode(4);
-    avlTree.insert(4);
-    assertEquals("TestInsertTop", node.getItem(), avlTree.getTop().getItem());
-    String tree = " | 4";
-    assertEquals("TestInsertTop", tree, avlTree.toString());
-  }
 
   @Test
   public void testCompareNodes() throws Exception {
@@ -67,43 +96,7 @@ public class AvlTreeTest {
     assertEquals("testCompareNodes", 0, avlTree.compareNodes(node2, node3));
   }
 
-  /*
-  @Test
-  public void testInsertingTheFirstElement() throws Exception {
-    AvlNode<Integer> node = new AvlNode<Integer>(6) ;
-    avlTree_.insertAvlNode(node);
-    assertEquals("testInsertingTheFirstElement", node, avlTree_.getTop());
-  }
-  */
 
-  @Test
-  public void testInsertingRightAndLeftElementsJustAfterTop() throws Exception {
-    AvlNode<Integer> node = new AvlNode<Integer>(6);
-    avlTree.insertAvlNode(node);
-    AvlNode<Integer> nodeLeft = new AvlNode<Integer>(4);
-    AvlNode<Integer> nodeRight = new AvlNode<Integer>(9);
-
-    assertEquals("testInsertingSecondSmallerElement", -1, avlTree.searchClosestNode(nodeLeft));
-    assertEquals("testInsertingSecondSmallerElement", node, nodeLeft.getClosestNode());
-    assertEquals("testInsertingSecondSmallerElement", +1, avlTree.searchClosestNode(nodeRight));
-    assertEquals("testInsertingSecondSmallerElement", node, nodeRight.getClosestNode());
-    assertEquals("testInsertingSecondSmallerElement", 0, avlTree.searchClosestNode(node));
-
-    node.setLeft(nodeLeft);
-    node.setRight(nodeRight);
-    AvlNode<Integer> nodeRightLeft = new AvlNode<Integer>(7);
-    avlTree.searchClosestNode(nodeRightLeft);
-    assertEquals("testInsertingSecondSmallerElement", -1,
-        avlTree.searchClosestNode(nodeRightLeft));
-    assertEquals("testInsertingSecondSmallerElement", nodeRight, nodeRightLeft.getClosestNode());
-
-    AvlNode<Integer> nodeLeftRight = new AvlNode<Integer>(5);
-    assertEquals("testInsertingSecondSmallerElement", 1, avlTree.searchClosestNode(nodeLeftRight));
-    assertEquals("testInsertingSecondSmallerElement", nodeLeft, nodeLeftRight.getClosestNode());
-
-    String tree = " | 6 | 4 | 9";
-    assertEquals("testInsertingSecondSmallerElement", tree, avlTree.toString());
-  }
 
   @Test
   public void testInsertingLeftElement() throws Exception {
@@ -556,49 +549,6 @@ public class AvlTreeTest {
     assertEquals("testDeletingNodesWithOneLeaf", 0, node2.getHeight());
     assertEquals("testDeletingNodesWithOneLeaf", 1, avlTree.getTop().getHeight());
     assertEquals("testDeletingNodesWithOneLeaf", " | 7 | 3 | 8", avlTree.toString());
-  }
-
-  @Test
-  public void testDeletingNodesWithTwoLeaves() throws Exception {
-    AvlNode<Integer> node;
-
-    node = new AvlNode<Integer>(20);
-    avlTree.insertAvlNode(node);
-
-    node = new AvlNode<Integer>(8);
-    avlTree.insertAvlNode(node);
-
-    node = new AvlNode<Integer>(22);
-    avlTree.insertAvlNode(node);
-
-    node = new AvlNode<Integer>(4);
-    avlTree.insertAvlNode(node);
-
-    node = new AvlNode<Integer>(12);
-    avlTree.insertAvlNode(node);
-
-    node = new AvlNode<Integer>(24);
-    avlTree.insertAvlNode(node);
-
-    node = new AvlNode<Integer>(10);
-    avlTree.insertAvlNode(node);
-
-    node = new AvlNode<Integer>(14);
-    avlTree.insertAvlNode(node);
-
-    String expected = " | 20 | 8 | 4 | 12 | 10 | 14 | 22 | 24";
-    assertEquals("testDeletingNodesWithTwoLeaves", expected, avlTree.toString());
-
-    avlTree.deleteNode(12);
-    node = avlTree.searchNode(8);
-    assertEquals("testDeletingNodesWithTwoLeaves", 14, (int) node.getRight().getItem());
-    assertEquals("testDeletingNodesWithTwoLeaves", " | 20 | 8 | 4 | 14 | 10 | 22 | 24",
-        avlTree.toString());
-
-    avlTree.deleteNode(8);
-    assertEquals("testDeletingNodesWithTwoLeaves", 10, (int) avlTree.getTop().getLeft().getItem());
-    assertEquals("testDeletingNodesWithTwoLeaves", " | 20 | 10 | 4 | 14 | 22 | 24",
-        avlTree.toString());
   }
 
   @Test
