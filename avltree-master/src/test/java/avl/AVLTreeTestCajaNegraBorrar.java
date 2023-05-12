@@ -2,10 +2,7 @@ package avl;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.Comparator;
 
@@ -47,7 +44,7 @@ public class AVLTreeTestCajaNegraBorrar {
         avlTree.insertAvlNode(node1);
         avlTree.insertAvlNode(nodeLeft);
         avlTree.insertAvlNode(nodeRight);
-        avlTree.deleteNode(node1);
+        avlTree.deleteNode(4);
         assertEquals(nodeLeft, avlTree.getTop());
         assertEquals(1, avlTree.getBalance(nodeLeft));
     }
@@ -59,7 +56,7 @@ public class AVLTreeTestCajaNegraBorrar {
         AvlNode<Integer> nodeRight = new AvlNode(6);
         avlTree.insertAvlNode(nodeRight);
         avlTree.insertAvlNode(node1);
-        avlTree.deleteNode(node1);
+        avlTree.deleteNode(4);
         assertEquals(nodeRight, avlTree.getTop());
         assertEquals(0, avlTree.getBalance(nodeRight));
     }
@@ -71,7 +68,7 @@ public class AVLTreeTestCajaNegraBorrar {
         AvlNode<Integer> nodeLeft = new AvlNode(2);
         avlTree.insertAvlNode(nodeLeft);
         avlTree.insertAvlNode(node1);
-        avlTree.deleteNode(node1);
+        avlTree.deleteNode(4);
         assertEquals(nodeLeft, avlTree.getTop());
         assertEquals(0, avlTree.getBalance(nodeLeft));
     }
