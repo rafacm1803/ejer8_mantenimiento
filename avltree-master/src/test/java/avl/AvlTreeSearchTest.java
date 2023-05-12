@@ -17,10 +17,16 @@ public class AvlTreeSearchTest {
         comparator = Comparator.comparingInt((Integer o) -> o);
     }
 
+    /**
+     * Probamos que al buscar un nodo y el arbol es nulo se devuelve null
+     *
+     * Given: Un arbol vacio
+     * When: Buscamos un elemento
+     * Then: Se devuelve null
+     */
     @Test
     public void testSearchTopNull() {
         //Given
-        AvlNode<Integer> node1 = new AvlNode<Integer>(4);
         AvlTree<Integer> avlTree = new AvlTree(comparator);
         AvlNode<Integer> result = new AvlNode<Integer>(0);
 
@@ -29,10 +35,6 @@ public class AvlTreeSearchTest {
 
         //Then
         assertEquals( null, result);
-
-
-
-
     }
 
 }
