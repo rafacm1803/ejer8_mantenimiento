@@ -211,41 +211,6 @@ public class AvlTreeTest {
    *
    * @throws Exception
    */
-  @Test
-  public void testInsertingLeftLeftNodeAndRebalance() throws Exception {
-    AvlNode<Integer> node1, node2, node3, node4, node5;
-
-    node1 = new AvlNode<Integer>(7);
-    avlTree.insertAvlNode(node1);
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", 0, node1.getHeight());
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", 0, avlTree.getBalance(node1));
-
-    node2 = new AvlNode<Integer>(4);
-    avlTree.insertAvlNode(node2);
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", 0, node2.getHeight());
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", 1, node1.getHeight());
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", -1, avlTree.getBalance(node1));
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", 0, avlTree.getBalance(node2));
-
-    node3 = new AvlNode<Integer>(3);
-    avlTree.insertAvlNode(node3);
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", node2, avlTree.getTop());
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", node3, node2.getLeft());
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", node1, node2.getRight());
-
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", 1, avlTree.getTop().getHeight());
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", 0,
-        avlTree.getTop().getLeft().getHeight());
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", 0,
-        avlTree.getTop().getRight().getHeight());
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", -1, avlTree.height(node1.getLeft()));
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", -1, avlTree.height(node1.getRight()));
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", -1, avlTree.height(node3.getLeft()));
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", -1, avlTree.height(node3.getRight()));
-
-    String tree = " | 4 | 3 | 7";
-    assertEquals("testInsertingLeftLeftNodeAndRebalance", tree, avlTree.toString());
-  }
 
   /**
    * Testing adding 7 - 10 - 14

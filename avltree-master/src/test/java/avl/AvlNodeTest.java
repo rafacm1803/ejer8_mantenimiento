@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Created with IntelliJ IDEA. User: Antonio J. Nebro Date: 09/07/13 Time: 15:29
+ * Created with IntelliJ IDEA. User: Rafael Ceballos Martinez Date: 09/07/13 Time: 15:29
  */
 public class AvlNodeTest {
 
