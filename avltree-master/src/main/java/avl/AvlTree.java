@@ -50,7 +50,7 @@ public class AvlTree<T> {
 
   public void insertAvlNode(AvlNode<T> node) {
     if (avlIsEmpty()) {
-      insertTop(node);
+      setTop(node);
     } else {
       int result = searchClosestNode(node);
 
@@ -67,12 +67,14 @@ public class AvlTree<T> {
     }
   }
 
+  /*  NO SIRVE, PODEMOS PASARLE EL ITEM AL SEARCH NODE Y CREAR EL AVL NODE DIRECTAMENTE
   public AvlNode<T> search(T item) {
     AvlNode<T> node = new AvlNode<T>(item);
     return searchNode(node);
-  }
+  }*/
 
-  public AvlNode<T> searchNode(AvlNode<T> targetNode) {
+  public AvlNode<T> searchNode(T item) {
+    AvlNode<T>  targetNode = new AvlNode<T>(item);
     AvlNode<T> currentNode;
     AvlNode<T> result = null;
 
@@ -108,14 +110,17 @@ public class AvlTree<T> {
     return result;
   }
 
+  /* NO SIRVE, PODEMOS PASARLE EL ITEM AL DELETE NODE Y CREAR EL AVL NODE DIRECTAMENTE
   public void delete(T item) {
     deleteNode(new AvlNode<T>(item));
   }
+   */
 
-  public void deleteNode(AvlNode<T> node) {
+  public void deleteNode(T item) {
+    AvlNode<T> node = new AvlNode<>(item);
     AvlNode<T> nodeFound;
 
-    nodeFound = searchNode(node);
+    nodeFound = searchNode(node.getItem());
     if (nodeFound != null) {
       if (nodeFound.isLeaf()) {
         deleteLeafNode(nodeFound);
@@ -378,10 +383,12 @@ public class AvlTree<T> {
     return top == null;
   }
 
+
+  /* NO SIRVE PORQUE LO UNICO QUE HACE ES ASIGNAR EL NODO A LA VARIABLE TOP, Y ESO LO HACE EL SETTER DE TOP
   public void insertTop(AvlNode<T> node) {
     top = node;
   }
-
+*/
 
   public AvlNode<T> getTop() {
     return top;

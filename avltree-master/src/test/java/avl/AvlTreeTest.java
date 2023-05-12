@@ -34,14 +34,14 @@ public class AvlTreeTest {
   public void testAvlIsEmpty() throws Exception {
     assertTrue("TestAvlIsEmpty", avlTree.avlIsEmpty());
 
-    avlTree.insertTop(new AvlNode(5));
+    avlTree.setTop(new AvlNode(5));
     assertFalse("TestAvlIsEmpty", avlTree.avlIsEmpty());
   }
 
   @Test
   public void testInsertTop() throws Exception {
     AvlNode<Integer> node = new AvlNode(4);
-    avlTree.insertTop(node);
+    avlTree.setTop(node);
     assertEquals("TestInsertTop", node, avlTree.getTop());
     String tree = " | 4";
     assertEquals("TestInsertTop", tree, avlTree.toString());
@@ -447,15 +447,15 @@ public class AvlTreeTest {
     node5 = new AvlNode<Integer>(3);
     avlTree.insertAvlNode(node5);
 
-    assertEquals("testSearchNode", node1, avlTree.search(7));
-    assertEquals("testSearchNode", node2, avlTree.search(9));
-    assertEquals("testSearchNode", node3, avlTree.search(8));
+    assertEquals("testSearchNode", node1, avlTree.searchNode(7));
+    assertEquals("testSearchNode", node2, avlTree.searchNode(9));
+    assertEquals("testSearchNode", node3, avlTree.searchNode(8));
     assertEquals("testSearchNode", (Integer) 2,
-        avlTree.searchNode(new AvlNode<Integer>(2)).getItem());
-    assertEquals("testSearchNode", node4, avlTree.search(2));
-    assertEquals("testSearchNode", node5, avlTree.search(3));
-    assertNull("testInsertNode", avlTree.search(14));
-    assertNull("testSearchNode", avlTree.search(0));
+        avlTree.searchNode(2));
+    assertEquals("testSearchNode", node4, avlTree.searchNode(2));
+    assertEquals("testSearchNode", node5, avlTree.searchNode(3));
+    assertNull("testInsertNode", avlTree.searchNode(14));
+    assertNull("testSearchNode", avlTree.searchNode(0));
 
     String tree = " | 8 | 3 | 2 | 7 | 9";
     assertEquals("testSearchNode", tree, avlTree.toString());
@@ -489,12 +489,12 @@ public class AvlTreeTest {
     node = new AvlNode<Integer>(14);
     avlTree.insertAvlNode(node);
 
-    node = avlTree.search(8);
-    assertEquals("testFindSuccessor", avlTree.search(10), avlTree.findSuccessor(node));
-    node = avlTree.search(10);
-    assertEquals("testFindSuccessor", avlTree.search(12), avlTree.findSuccessor(node));
-    node = avlTree.search(14);
-    assertEquals("testFindSuccessor", avlTree.search(20), avlTree.findSuccessor(node));
+    node = avlTree.searchNode(8);
+    assertEquals("testFindSuccessor", avlTree.searchNode(10), avlTree.findSuccessor(node));
+    node = avlTree.searchNode(10);
+    assertEquals("testFindSuccessor", avlTree.searchNode(12), avlTree.findSuccessor(node));
+    node = avlTree.searchNode(14);
+    assertEquals("testFindSuccessor", avlTree.searchNode(20), avlTree.findSuccessor(node));
 
     String tree = " | 20 | 8 | 4 | 12 | 10 | 14 | 22 | 24";
     assertEquals("testSearchNode", tree, avlTree.toString());
@@ -522,29 +522,29 @@ public class AvlTreeTest {
     String tree = " | 7 | 2 | 3 | 9 | 8";
     assertEquals("testDeletingLeafNodes", tree, avlTree.toString());
 
-    avlTree.delete(3); // right leaf node
+    avlTree.deleteNode(3); // right leaf node
     assertEquals("testDeletingLeafNodes", null, node3.getRight());
     assertEquals("testDeletingLeafNodes", 0, node3.getHeight());
     assertEquals("testDeletingLeafNodes", 2, avlTree.getTop().getHeight());
     assertEquals("testDeletingLeafNodes", " | 7 | 2 | 9 | 8", avlTree.toString());
 
-    avlTree.delete(8); // left leaf node
+    avlTree.deleteNode(8); // left leaf node
     assertEquals("testDeletingLeafNodes", null, node2.getLeft());
     assertEquals("testDeletingLeafNodes", 0, node2.getHeight());
     assertEquals("testDeletingLeafNodes", 1, avlTree.getTop().getHeight());
     assertEquals("testDeletingLeafNodes", " | 7 | 2 | 9", avlTree.toString());
 
-    avlTree.delete(2); // left leaf node
+    avlTree.deleteNode(2); // left leaf node
     assertEquals("testDeletingLeafNodes", null, node1.getLeft());
     assertEquals("testDeletingLeafNodes", 1, node1.getHeight());
     assertEquals("testDeletingLeafNodes", " | 7 | 9", avlTree.toString());
 
-    avlTree.delete(9); // right leaf node
+    avlTree.deleteNode(9); // right leaf node
     assertEquals("testDeletingLeafNodes", null, node1.getRight());
     assertEquals("testDeletingLeafNodes", 0, node1.getHeight());
     assertEquals("testDeletingLeafNodes", " | 7", avlTree.toString());
 
-    avlTree.delete(7); // left leaf node
+    avlTree.deleteNode(7); // left leaf node
     assertEquals("testDeletingLeafNodes", null, avlTree.getTop());
     assertEquals("testDeletingLeafNodes", "", avlTree.toString());
   }
@@ -571,14 +571,14 @@ public class AvlTreeTest {
     String tree = " | 7 | 2 | 3 | 9 | 8";
     assertEquals("testDeletingNodesWithOneLeaf", tree, avlTree.toString());
 
-    avlTree.delete(2);
+    avlTree.deleteNode(2);
     assertEquals("testDeletingNodesWithOneLeaf", node3.getItem(), node1.getLeft().getItem());
     assertEquals("testDeletingNodesWithOneLeaf", null, node3.getRight());
     assertEquals("testDeletingNodesWithOneLeaf", 0, node3.getHeight());
     assertEquals("testDeletingNodesWithOneLeaf", 2, avlTree.getTop().getHeight());
     assertEquals("testDeletingNodesWithOneLeaf", " | 7 | 3 | 9 | 8", avlTree.toString());
 
-    avlTree.delete(9);
+    avlTree.deleteNode(9);
     assertEquals("testDeletingNodesWithOneLeaf", node2.getItem(), node1.getRight().getItem());
     assertEquals("testDeletingNodesWithOneLeaf", null, node2.getLeft());
     assertEquals("testDeletingNodesWithOneLeaf", 0, node2.getHeight());
@@ -617,13 +617,13 @@ public class AvlTreeTest {
     String expected = " | 20 | 8 | 4 | 12 | 10 | 14 | 22 | 24";
     assertEquals("testDeletingNodesWithTwoLeaves", expected, avlTree.toString());
 
-    avlTree.delete(12);
-    node = avlTree.search(8);
+    avlTree.deleteNode(12);
+    node = avlTree.searchNode(8);
     assertEquals("testDeletingNodesWithTwoLeaves", 14, (int) node.getRight().getItem());
     assertEquals("testDeletingNodesWithTwoLeaves", " | 20 | 8 | 4 | 14 | 10 | 22 | 24",
         avlTree.toString());
 
-    avlTree.delete(8);
+    avlTree.deleteNode(8);
     assertEquals("testDeletingNodesWithTwoLeaves", 10, (int) avlTree.getTop().getLeft().getItem());
     assertEquals("testDeletingNodesWithTwoLeaves", " | 20 | 10 | 4 | 14 | 22 | 24",
         avlTree.toString());
@@ -659,10 +659,10 @@ public class AvlTreeTest {
 
     assertEquals("testDeletingDeepLeafNode", 3, avlTree.getTop().getHeight());
 
-    avlTree.delete(22);
+    avlTree.deleteNode(22);
     assertEquals("testDeletingDeepLeafNode", 12, (int) avlTree.getTop().getItem());
-    assertEquals("testDeletingDeepLeafNode", avlTree.search(8), avlTree.getTop().getLeft());
-    assertEquals("testDeletingDeepLeafNode", avlTree.search(20), avlTree.getTop().getRight());
+    assertEquals("testDeletingDeepLeafNode", avlTree.searchNode(8), avlTree.getTop().getLeft());
+    assertEquals("testDeletingDeepLeafNode", avlTree.searchNode(20), avlTree.getTop().getRight());
   }
 
   @Test
@@ -695,7 +695,7 @@ public class AvlTreeTest {
 
     assertEquals("testDeletingTopNode", 3, avlTree.getTop().getHeight());
 
-    avlTree.delete(20);
+    avlTree.deleteNode(20);
     assertEquals("testDeletingTopNode", " | 12 | 8 | 4 | 10 | 22 | 14 | 24", avlTree.toString());
   }
 }
