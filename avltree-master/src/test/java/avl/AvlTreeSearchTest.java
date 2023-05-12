@@ -22,11 +22,10 @@ public class AvlTreeSearchTest {
         //Given
         AvlNode<Integer> node1 = new AvlNode<Integer>(4);
         AvlTree<Integer> avlTree = new AvlTree(comparator);
-        AvlNode<Integer> targetNode = new AvlNode<Integer>(4);
         AvlNode<Integer> result = new AvlNode<Integer>(0);
 
         //When
-        result =  avlTree.searchNode(targetNode);
+        result =  avlTree.searchNode(4);
 
         //Then
         assertEquals( null, result);
