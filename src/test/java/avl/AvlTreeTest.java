@@ -48,6 +48,15 @@ public class AvlTreeTest {
   }
 
   @Test
+  public void testInsertTopRafa() throws Exception {
+    AvlNode<Integer> node = new AvlNode(4);
+    avlTree.insert(4);
+    assertEquals("TestInsertTop", node.getItem(), avlTree.getTop().getItem());
+    String tree = " | 4";
+    assertEquals("TestInsertTop", tree, avlTree.toString());
+  }
+
+  @Test
   public void testCompareNodes() throws Exception {
     AvlNode<Integer> node1 = new AvlNode<Integer>(4);
     AvlNode<Integer> node2 = new AvlNode<Integer>(5);
