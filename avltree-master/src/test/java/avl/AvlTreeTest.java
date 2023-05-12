@@ -415,8 +415,6 @@ public class AvlTreeTest {
     assertEquals("testSearchNode", node1, avlTree.searchNode(7));
     assertEquals("testSearchNode", node2, avlTree.searchNode(9));
     assertEquals("testSearchNode", node3, avlTree.searchNode(8));
-    assertEquals("testSearchNode", (Integer) 2,
-        avlTree.searchNode(2));
     assertEquals("testSearchNode", node4, avlTree.searchNode(2));
     assertEquals("testSearchNode", node5, avlTree.searchNode(3));
     assertNull("testInsertNode", avlTree.searchNode(14));
